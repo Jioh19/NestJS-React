@@ -1,3 +1,4 @@
+import { useTasks } from '../context/useTasks';
 import { Task } from '../interfaces/task.interface';
 
 interface Props {
@@ -5,6 +6,9 @@ interface Props {
 }
 
 function TaskItem({ task }: Props) {
+
+	const {deleteTask} = useTasks()
+
 	return (
 		<div key={task._id} className="bg-gray-900 p-2 my-2 flex 
 		justify-between hover:bg-gray-800 hover:cursor-pointer">
@@ -14,7 +18,9 @@ function TaskItem({ task }: Props) {
 			</div>
 			<div className="flex gap-x-2">
 				<button>Update</button>
-				<button>Delete</button>
+				<button onClick={async() => {
+					await deleteTask(task._id)
+				}}>Delete</button>
 			</div>
 		</div>
 	);
